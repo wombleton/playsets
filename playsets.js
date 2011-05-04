@@ -5,8 +5,9 @@ var dateformat = require('dateformat'),
     Mongoose = require('mongoose'),
     Schema = Mongoose.Schema,
     _ = require('underscore'),
-    PlaysetSchema,
-    TableSchema,
+    Category,
+    Playset,
+    Table,
     PAGE_SIZE = 50;
 
 function slug(s) {
@@ -28,13 +29,13 @@ function parseTags(tags) {
   });
 }
 
-CategorySchema = new Schema({
+Category = new Schema({
   title: String,
-  subcategories: [String]
+  subcategories: [ String ]
 });
-TableSchema = new Schema({
+Table = new Schema({
   title: String,
-  categories: [CategorySchema]
+  categories: [ Category ]
 });
 
 Playset = new Schema({
@@ -44,7 +45,7 @@ Playset = new Schema({
   instant: {
     type: String
   },
-  tables: [TableSchema],
+  tables: [ Table ],
   title: {
     type: String
   },
@@ -65,34 +66,34 @@ Playset = new Schema({
     set: function(tags) {
       return parseTags(tags);
     },
-    type: [String]
+    type: [ String ]
   }
 });
 
-MoveSchema.pre('save', function(next) {
+Playset.pre('save', function(next) {
   this.meta.slug = slug(this.condition);
   next();
 });
-MoveSchema.virtual('url').get(function() {
+Playset.virtual('url').get(function() {
   return '/playsets/' + this.meta.slug;
 });
 
-MoveSchema.virtual('preamble_markdown').get(function() {
+Playset.virtual('preamble_markdown').get(function() {
   return md(this.definition || '', MD_TAGS);
 });
 
-MoveSchema.virtual('edit_url').get(function() {
+Playset.virtual('edit_url').get(function() {
   return '/playsets/' + this._id + '/edit';
 });
 
-MoveSchema.virtual('id_url').get(function() {
+Playset.virtual('id_url').get(function() {
   return '/playsets/' + this._id;
 });
-MoveSchema.virtual('date_display').get(function() {
+Playset.virtual('date_display').get(function() {
   return dateformat(new Date(this.ts), 'dd mmm yyyy');
 });
 
-Mongoose.model('Playset', PlaysetSchema);
+Mongoose.model('Playset', Playset);
 
 module.exports.route = function(server, Playset) {
 };

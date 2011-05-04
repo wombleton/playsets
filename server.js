@@ -32,11 +32,7 @@ server.configure('test', function() {
 server.set('views', __dirname + '/views');
 server.set('view engine', 'jade');
 
-server.get('/', function(req, res) {
-  res.redirect('/moves');
-});
-
 var playsets = require('./playsets'),
     Playset = db.model('Playset');
 
-moves.route(server, Playset);
+playsets.route(server, Playset);
