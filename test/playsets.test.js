@@ -13,3 +13,13 @@ exports['GET /'] = function() {
     status: 200
   });
 }
+
+exports['/GET /new'] = function() {
+  assert.response(server,
+  {
+    url: '/new'
+  },
+  {
+    status: 200
+  });
+}

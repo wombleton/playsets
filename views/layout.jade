@@ -1,0 +1,62 @@
+!!! 5
+html
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    
+    title Playsets
+    link(rel='stylesheet/less', href='/less/style.less', type='text/css')
+    link(rel="SHORTCUT ICON", href="/images/hardholder.png")
+    
+    script(src='/js/less.js')
+    script(type='text/javascript')
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+  body
+    #container
+      header
+        .headline
+          a#title(href='/')
+            img(src='/images/playsets.png', height='90px', width='90px')
+            img(src='/images/title.png', height='90px', width='403px')
+          form#search
+            - var tags = tags || ''
+            input.tags(name='search', placeholder='tag search', value=tags)
+            input.search(type='submit', value='Go')
+        .nav
+          ul
+            - var context = context || 'directory';
+            li
+              - if (context === 'directory')
+                a.active(href='/') Directory
+              - else
+                a(href='/') Directory
+            li
+              - if (context === 'new')
+                a.active(href='/moves/new') Add Move
+              -else
+                a(href='/moves/new') Add Move
+      div#main(role='main')!=body
+      footer
+        ul
+          li
+            | By
+            a(href='http://twitter.com/wombleton') @wombleton
+          li
+            | For
+            a(href='http://bullypulpitgames.com') Fiasco
+          li
+            a(href='/moves/rss') RSS
+
+    script(src='/js/modernizr.js')
+    script(src='/js/jquery.js')
+    script(src='/js/playsets.js')
+    
