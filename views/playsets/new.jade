@@ -1,0 +1,17 @@
+h1 New Playset
+
+form(action='/playsets', method='POST')
+  ul
+    li
+      !=partial('form/description')
+    li
+      !=partial('form/relationships', { locals: { index: 0 }})
+    li
+      !=partial('form/needs', { locals: { index: 1 }})
+    li
+      !=partial('form/locations', { locals: { index: 2 }})
+    li
+      !=partial('form/objects', { locals: { index: 3 }})
+    li
+      !=partial('form/instant')
+  input(type='submit', value='Create')
