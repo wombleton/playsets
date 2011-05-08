@@ -10,14 +10,39 @@ exports['GET /'] = ->
       url: '/'
     },
     {
-      status: 200
+      status: 302
     }
 
-exports['/GET /new'] = ->
-  assert.response server,
+exports['GET /playsets'] = ->
+  assert.response server, 
     {
-      url: '/new'
+      url: '/playsets'
     },
     {
       status: 200
     }
+  
+exports['GET /playsets/new'] = ->
+  assert.response server,
+    {
+      url: '/playsets/new'
+    },
+    {
+      status: 200
+    }
+    
+exports['POST /playsets'] = ->
+  assert.response server,
+  {
+    url: '/playsets',
+    body: 'playset[title]=foo',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  },
+  {
+    status: 302
+  },
+  (res) ->
+    assert.eql 'http://undefined/playsets/foo', res.headers.location

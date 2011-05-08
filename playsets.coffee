@@ -19,14 +19,10 @@ parseTags = (tags) ->
   _.map _.compact(tags.split /\s+/), (tag) ->
     tag.replace /[^a-z0-9-_]/gi, ''    
 
-Category = new Schema {
-  title: String,
-  subcategories: [ String ]
-}
-
 Table = new Schema {
   title: String,
-  categories: [ Category ]
+  categories: [ String ],
+  subcategories: [ String ]
 }
 
 Playset = new Schema {
@@ -62,11 +58,11 @@ Playset = new Schema {
 }
 
 Playset.pre 'save', (next) -> 
-  this.meta.slug = slug(this.condition)
+  this.meta.slug = slug(this.title)
   next()
   
 Playset.virtual('url').get ->
-  '/playsets/' + this.meta.slug;
+  '/playsets/' + this.meta.slug
 
 Playset.virtual('preamble_markdown').get -> 
   md(this.definition || '', MD_TAGS)
@@ -84,7 +80,18 @@ Mongoose.model 'Playset', Playset
 
 module.exports.route = (server, Playset) ->
   server.get '/', (req, res) ->
+    res.redirect '/playsets'
+    
+  server.get '/playsets', (req, res) ->
     res.render('playsets/playsets')
 
-  server.get '/new', (req, res) ->
+  server.get '/playsets/new', (req, res) ->
     res.render 'playsets/new'
+    
+  server.post '/playsets', (req, res) ->
+    playset = new Playset req.body && req.body.playset
+    playset.save (err) ->
+      if (err)
+        res.redirect '/playsets/new', { locals: { playset: playset } }
+      else
+        res.redirect playset.url
