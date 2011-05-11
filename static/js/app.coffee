@@ -1,8 +1,16 @@
-$('#new_playset').live 'submit', ->
-  elements = $(this).serializeArray()
-  debugger
-  false
+$(document).ready ->
 
-$('#search').submit ->
-  window.location.href = '/playsets/tagged/' + $('.tags', this).val().replace(/[^a-z0-9-_ ]/gi, '')
-  false
+  $('#new_playset').submit ->
+    json = $(this).toObject '.', false
+    $.ajax
+      type: 'POST'
+      url: '/playsets'
+      data: JSON.stringify json
+      success: ->
+        alert('!')
+      dataType: 'json'
+    false
+  
+  $('#search').submit ->
+    window.location.href = '/playsets/tagged/' + $('.tags', this).val().replace(/[^a-z0-9-_ ]/gi, '')
+    false

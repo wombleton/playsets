@@ -32,7 +32,26 @@ Playset = new Schema {
   instant: {
     type: String
   },
-  tables: [ Table ],
+  relationships: {
+    title: String
+    categories: [ String ],
+    entries: [ String ]
+  }
+  locations: {
+    title: String
+    categories: [ String ],
+    entries: [ String ]
+  }
+  objects: {
+    title: String
+    categories: [ String ],
+    entries: [ String ]
+  }
+  needs: {
+    title: String
+    categories: [ String ],
+    entries: [ String ]
+  }
   title: {
     type: String
   },

@@ -1,8 +1,8 @@
 ol
   - for (var i = 0; i < 6; i++)
     li
-      input(name='playset[' +  title + '][categories][' + i + ']')
+      input(name='playset.' +  title + '.categories[]')                    
       ol
         - for (var j = 0; j < 6; j++)
           li
-            input(name='playset[' + title + '][subcategories][' + (i * 6) + j + ']')
+            input(name='playset.' + title + '.subcategories[]')

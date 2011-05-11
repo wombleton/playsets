@@ -35,14 +35,14 @@ exports['POST /playsets'] = ->
   assert.response server,
   {
     url: '/playsets',
-    body: 'playset[title]=foo',
+    body: '{ "playset": { "title": "foo" } }',
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     }
   },
   {
-    status: 302
+    status: 302 
   },
   (res) ->
     assert.eql 'http://undefined/playsets/foo', res.headers.location

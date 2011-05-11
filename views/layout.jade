@@ -41,7 +41,7 @@ html
                 a(href='/') Directory
             li
               - if (context === 'new')
-                a.active(href='/moves/new') Add Move
+                a.active(href='/playsets/new') Add Playset
               -else
                 a(href='/playsets/new') Add Playset
       div#main(role='main')!=body
@@ -58,5 +58,6 @@ html
 
     script(src='/js/lib/modernizr.js')
     script(src='/js/lib/jquery.js')
+    script(src='/js/lib/jquery.toobject.js')
     script(src='/js/app.js')
     
