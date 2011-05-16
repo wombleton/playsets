@@ -5,13 +5,13 @@ form(action='/playsets', method='POST', id="new_playset")
     li
       !=partial('form/description')
     li
-      !=partial('form/relationships', { locals: { index: 0 }})
+      !=partial('form/relationships')
     li
-      !=partial('form/needs', { locals: { index: 1 }})
+      !=partial('form/needs')
     li
-      !=partial('form/locations', { locals: { index: 2 }})
+      !=partial('form/locations')
     li
-      !=partial('form/objects', { locals: { index: 3 }})
+      !=partial('form/objects')
     li
       !=partial('form/instant')
   input(type='submit', value='Create')

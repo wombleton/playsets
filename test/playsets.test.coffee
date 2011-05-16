@@ -45,4 +45,23 @@ exports['POST /playsets'] = ->
     status: 302 
   },
   (res) ->
-    assert.eql 'http://undefined/playsets/foo', res.headers.location
+    assert.match res.headers.location, /^http:\/\/undefined\/playsets\/[a-z0-9]+$/
+     
+exports['GET /playsets/:id'] = ->
+  Playset.findOne (err, playset) ->
+    assert.response server,
+      {
+        url: '/playsets/' + playset._id
+      },
+      {
+        status: 200
+      }
+      
+exports['GET /playsets/quack 404s'] = ->
+  assert.response server,
+    {
+      url: '/playsets/quack'
+    },
+    {
+      status: 404
+    }

@@ -1,5 +1,5 @@
 (function() {
-  var Mongoose, Playset, cs, db, express, playsets, server, _;
+  var Mongoose, Playset, Seq, cs, db, express, playsets, seq, server, _;
   express = require('express');
   cs = require('coffee-script');
   server = express.createServer();
@@ -30,7 +30,10 @@
   });
   server.set('views', __dirname + '/views');
   server.set('view engine', 'jade');
+  seq = require('./seq');
+  Seq = db.model('Seq');
+  seq.init(Seq);
   playsets = require('./playsets');
   Playset = db.model('Playset');
-  playsets.route(server, Playset);
+  playsets.init(server, Playset, Seq);
 }).call(this);

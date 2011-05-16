@@ -5,6 +5,7 @@ MD_TAGS = 'b|em|i|li|ol|p|strong|ul|br|hr'
 Mongoose = require('mongoose')
 Schema = Mongoose.Schema
 _ = require('underscore')
+seq = require './seq'
 PAGE_SIZE = 50
 
 slug = (s) ->
@@ -56,6 +57,7 @@ Playset = new Schema {
     type: String
   },
   meta: {
+    id: Number,
     slug: String
   },
   ts: {
@@ -76,9 +78,17 @@ Playset = new Schema {
   }
 }
 
-Playset.pre 'save', (next) -> 
-  this.meta.slug = slug(this.title)
-  next()
+Playset.pre 'save', (next) ->
+  if this.meta?.id
+    this.meta.slug = this.meta.id + '-' + this.meta.title
+    next()
+  else
+    this.seq (err, sequence) ->
+      console.log sequence
+      this.meta.id = sequence
+      this.meta.slug = this.meta.id + '-' + this.meta.title
+      next()
+    return
   
 Playset.virtual('url').get ->
   '/playsets/' + this.meta.slug
@@ -95,9 +105,13 @@ Playset.virtual('id_url').get ->
 Playset.virtual('date_display').get ->
   dateformat new Date(this.ts), 'dd mmm yyyy'
 
+Playset.method {
+  seq: seq.getSequence 'playsets'
+}
+
 Mongoose.model 'Playset', Playset
 
-module.exports.route = (server, Playset) ->
+module.exports.init = (server, Playset) ->
   server.get '/', (req, res) ->
     res.redirect '/playsets'
     
@@ -110,7 +124,18 @@ module.exports.route = (server, Playset) ->
   server.post '/playsets', (req, res) ->
     playset = new Playset req.body && req.body.playset
     playset.save (err) ->
-      if (err)
+      if err
         res.redirect '/playsets/new', { locals: { playset: playset } }
       else
         res.redirect playset.url
+        
+  server.get '/playsets/:id', (req, res) ->
+    Playset.findById req.params.id, (err, playset) ->
+      if err
+        res.render '404'
+      else
+        res.render 'playsets/show',
+        {
+          locals:
+            playset: playset
+        }

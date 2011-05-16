@@ -7,7 +7,7 @@ $(document).ready ->
       url: '/playsets'
       data: JSON.stringify json
       success: ->
-        alert('!')
+        return
       dataType: 'json'
     false
   

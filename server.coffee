@@ -28,9 +28,13 @@ server.configure 'test', ->
   module.exports.server = server
 
 server.set 'views', __dirname + '/views'
-server.set 'views engine', 'jade'
+server.set 'view   engine', 'jade'
 
-playsets = require('./playsets')
+seq = require './seq'
+Seq = db.model 'Seq'
+seq.init Seq
+
+playsets = require './playsets'
 Playset = db.model 'Playset'
 
-playsets.route server, Playset
+playsets.init  server, Playset
