@@ -5,7 +5,6 @@ MD_TAGS = 'b|em|i|li|ol|p|strong|ul|br|hr'
 Mongoose = require('mongoose')
 Schema = Mongoose.Schema
 _ = require('underscore')
-seq = require './seq'
 PAGE_SIZE = 50
 
 slug = (s) ->
@@ -40,6 +39,7 @@ Playset = new Schema {
   }
   locations: {
     title: String
+    
     categories: [ String ],
     entries: [ String ]
   }
@@ -79,16 +79,8 @@ Playset = new Schema {
 }
 
 Playset.pre 'save', (next) ->
-  if this.meta?.id
-    this.meta.slug = this.meta.id + '-' + this.meta.title
-    next()
-  else
-    this.seq (err, sequence) ->
-      console.log sequence
-      this.meta.id = sequence
-      this.meta.slug = this.meta.id + '-' + this.meta.title
-      next()
-    return
+  this.meta.slug = this._id
+  next()
   
 Playset.virtual('url').get ->
   '/playsets/' + this.meta.slug
@@ -104,10 +96,6 @@ Playset.virtual('id_url').get ->
 
 Playset.virtual('date_display').get ->
   dateformat new Date(this.ts), 'dd mmm yyyy'
-
-Playset.method {
-  seq: seq.getSequence 'playsets'
-}
 
 Mongoose.model 'Playset', Playset
 

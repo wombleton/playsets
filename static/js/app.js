@@ -7,7 +7,12 @@
         type: 'POST',
         url: '/playsets',
         data: JSON.stringify(json),
-        success: function() {},
+        failure: function() {
+          return alert('did not work');
+        },
+        success: function() {
+          debugger;
+        },
         dataType: 'json'
       });
       return false;
