@@ -119,7 +119,7 @@ module.exports.init = (server, Playset) ->
         
   server.get '/playsets/:id', (req, res) ->
     Playset.findById req.params.id, (err, playset) ->
-      if err
+      if err or !playset
         res.render '404'
       else
         res.render 'playsets/show',
