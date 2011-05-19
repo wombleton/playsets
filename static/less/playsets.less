@@ -241,7 +241,7 @@ form {
     display: block;
   }                
   input.txt, textarea {
-    width: 480px;      
+    width: 28em;      
     border: 1px solid #aaa;
     line-height: 1.8;
     font-size: 1.2em;
@@ -255,10 +255,13 @@ form {
     list-style: outside decimal;
     margin: 0;
     li {
-      margin: 0.5em 2em;
+      margin: 0.5em 0 0.5em 2em;
     }
-    ol li {
-      margin: 0.5em 2em 0.5em 2em;
+    ol li {  
+      input.txt, textarea {
+        width: 26.3em;
+      }
+      margin: 0.5em 0 0.5em 2em;
     }
   }
 }
