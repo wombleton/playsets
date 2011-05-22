@@ -39,7 +39,6 @@ Playset = new Schema {
   }
   locations: {
     title: String
-    
     categories: [ String ],
     entries: [ String ]
   }
@@ -120,7 +119,9 @@ module.exports.init = (server, Playset) ->
   server.get '/playsets/:id', (req, res) ->
     Playset.findById req.params.id, (err, playset) ->
       if err or !playset
-        res.render '404'
+        res.render '404', {
+          status: 404
+        }
       else
         res.render 'playsets/show',
         {

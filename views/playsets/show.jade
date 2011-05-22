@@ -2,14 +2,14 @@ h1 #{playset.title}
 
 ul
   li
-    !=partial('display/description')
+    !=partial('display/description', { locals: { description: playset.description } })
   li
-    !=partial('display/relationships')
+    !=partial('display/relationships', { locals: { relationships: playset.relationships } })
   li
-    !=partial('display/needs')
+    !=partial('display/needs', { locals: { needs: playset.needs } } )
   li
-    !=partial('display/locations')
+    !=partial('display/locations', { locals: { locations: playset.locations } })
   li
-    !=partial('display/objects')
+    !=partial('display/objects', { locals: { objects: playset.objects } })
   li
     !=partial('display/instant')

@@ -1,8 +1,8 @@
 ol.table
   - for (var i = 0; i < 6; i++)
-    li,category
+    li.category
       =table.categories[i]
-      ol.subcategories
+      ol.entries
         - for (var j = 0; j < 6; j++)
-          li.subcategory
-            =table.subcategories[(i * 6) + j]
+          li.entry
+            =table.entries[(i * 6) + j]

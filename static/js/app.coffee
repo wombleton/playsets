@@ -4,7 +4,10 @@ $(document).ready ->
     $.ajax
       type: 'POST'
       url: '/playsets'
+      contentType: 'application/json'
       data: JSON.stringify json
+      headers:
+        'Content-Type': 'application/json'
       failure: ->
         alert('did not work')
       success: ->
