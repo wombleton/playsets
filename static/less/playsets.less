@@ -1,3 +1,11 @@
+.action-button() {
+  .linear-gradient(#aa0000, #440000);
+  .border-radius(5px, 5px, 5px, 5px);
+  color: white;
+  font-weight: bold;
+  padding: 0.7em 1.5em;
+}
+
 body, p, td, input {
   font-family: Georgia, Times New Roman, serif;
   font-size: 1em;
@@ -121,15 +129,13 @@ form .move {
       border: 1px solid #ccc;
     }
   }
+  
 }
 
-input.save {
-  border: 1px solid #ccc;
-  .linear-gradient(#aa0000, #440000);
-  .border-radius(5px, 5px, 5px, 5px);
-  color: white;
-  font-weight: bold;
-  padding: 0.7em 1.5em;
+input.action {
+  .action-button();
+  border: none;
+  margin: 0 1em 0 0;
 }
 
 #preview {
@@ -263,5 +269,16 @@ form {
       }
       margin: 0.5em 0 0.5em 2em;
     }
+  }
+}
+
+.pages {
+  li {
+    display: none;
+    
+    &.active {
+      display: block;
+    }
+    
   }
 }
