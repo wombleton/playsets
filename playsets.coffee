@@ -33,22 +33,22 @@ Playset = new Schema {
     type: String
   },
   relationships: {
-    title: String
+    'default': { categories: [], entries: [] },
     categories: [ String ],
     entries: [ String ]
   }
   locations: {
-    title: String
+    'default': { categories: [], entries: [] },
     categories: [ String ],
     entries: [ String ]
   }
   objects: {
-    title: String
+    'default': { categories: [], entries: [] },
     categories: [ String ],
     entries: [ String ]
   }
   needs: {
-    title: String
+    'default': { categories: [], entries: [] },
     categories: [ String ],
     entries: [ String ]
   }
