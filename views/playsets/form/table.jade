@@ -1,0 +1,26 @@
+form(action=playset.url + '/' + property + '/' + index, method='POST')
+  ol.entries
+    li.header
+      label Header
+      .number
+      input.txt(name='table[header]', value=playset[property][index].header)
+    li.entry
+      .number=1
+      input.txt(name='table[0]', value=playset[property][index][0])
+    li.entry
+      .number=2
+      input.txt(name='table[1]', value=playset[property][index][1])
+    li.entry
+      .number=3
+      input.txt(name='table[2]', value=playset[property][index][2])
+    li.entry
+      .number=4
+      input.txt(name='table[3]', value=playset[property][index][3])
+    li.entry
+      .number=5
+      input.txt(name='table[4]', value=playset[property][index][4])
+    li.entry
+      .number=6
+      input.txt(name='table[5]', value=playset[property][index][5])
+  input.action(type='submit', value='Save')
+  a(href=playset.url) Cancel

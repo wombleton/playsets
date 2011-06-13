@@ -9,7 +9,9 @@ server.configure ->
   server.use express.logger()
   server.use express.bodyParser()
   server.use express.methodOverride()
+  server.use express.cookieParser()
   server.use express.static __dirname + '/static'
+  
   
 server.configure 'production', ->
   db = Mongoose.connect 'mongodb://localhost/playsets'
@@ -29,6 +31,10 @@ server.configure 'test', ->
 
 server.set 'views', __dirname + '/views'
 server.set 'view engine', 'jade'
+
+user = require './users'
+User = db.model 'User'
+users.init server, User
 
 playsets = require './playsets'
 Playset = db.model 'Playset'

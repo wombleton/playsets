@@ -25,6 +25,39 @@ Table = new Schema {
   subcategories: [ String ]
 }
 
+tableDef = {
+  header:
+    type: String
+    default: ''
+  0: 
+    type: String
+    default: ''
+  1: 
+    type: String
+    default: ''
+  2: 
+    type: String
+    default: ''
+  3: 
+    type: String
+    default: ''
+  4: 
+    type: String
+    default: ''
+  5: 
+    type: String
+    default: ''
+} 
+
+categoryDef = {
+    0: tableDef
+    1: tableDef
+    2: tableDef
+    3: tableDef
+    4: tableDef
+    5: tableDef
+}
+
 Playset = new Schema {
   preamble: {
     type: String
@@ -32,26 +65,10 @@ Playset = new Schema {
   instant: {
     type: String
   },
-  relationships: {
-    'default': { categories: [], entries: [] },
-    categories: [ String ],
-    entries: [ String ]
-  }
-  locations: {
-    'default': { categories: [], entries: [] },
-    categories: [ String ],
-    entries: [ String ]
-  }
-  objects: {
-    'default': { categories: [], entries: [] },
-    categories: [ String ],
-    entries: [ String ]
-  }
-  needs: {
-    'default': { categories: [], entries: [] },
-    categories: [ String ],
-    entries: [ String ]
-  }
+  relationships: categoryDef
+  locations: categoryDef
+  objects: categoryDef
+  needs: categoryDef
   title: {
     type: String
   },
@@ -128,3 +145,48 @@ module.exports.init = (server, Playset) ->
           locals:
             playset: playset
         }
+   
+  server.get '/playsets/:id/description/edit', (req, res) ->
+    id = req.params.id
+    Playset.findById req.params.id, (err, playset) ->
+      if err or !playset
+        res.render '404', {
+          status: 404
+        }
+      else
+        res.render 'playsets/form/description', {
+          locals:
+            playset: playset
+        }
+    
+  server.get '/playsets/:id/:property/:index', (req, res) ->
+    id = req.params.id
+    property = req.params.property
+    index = req.params.index
+    Playset.findById req.params.id, (err, playset) ->
+      if err or !playset
+        res.render '404', {
+          status: 404
+        }
+      else
+        res.render 'playsets/form/table', {
+          locals:
+            playset: playset
+            property: property
+            index: index
+        }
+  
+  server.post '/playsets/:id/:property/:index', (req, res) ->
+    id = req.params.id
+    property = req.params.property
+    index = req.params.index
+    table = req.body.table
+    Playset.findById req.params.id, (err, playset) ->
+      if err or !playset
+        res.render '404', {
+          status: 404
+        }
+      else
+        playset[property][index] = table
+        playset.save (err) ->
+          res.redirect playset.url   

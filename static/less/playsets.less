@@ -34,7 +34,7 @@ footer {
 p {
   margin: 0 0 1em;
 }
-ul, ol {
+ul {
   margin: 0 0 1em 2em;
 } 
                                                     
@@ -107,31 +107,6 @@ header {
   }
 }
 
-form .move {
-  textarea {
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-  }
-  input {
-    font-size: 1.2em;
-    width: 100%;       
-    background: white;
-  }
-  .title {
-    line-height: 1.6;
-    .condition {
-      padding: 1em;
-    }
-    .stat {
-    }
-    input {
-      border: 1px solid #ccc;
-    }
-  }
-  
-}
-
 a.action, input.action {
   .action-button();
   border: none;
@@ -154,98 +129,20 @@ a.action, input.action {
   margin-right: 20px;
 }
 
-.moves {
-  margin: 0;
-  width: 100%;
-}
-
-
-.move {       
-  margin: 0 0 1em;  
-  .title {
-    .condition {                  
-      font-family: Verdana, arial, serif;
-      text-transform: uppercase;
-      a {
-        color: black;
-        font-weight: bold;
-      }  
-      padding: 0.5em 1em 0;
-      vertical-align: middle;
-      .linear-gradient(#fff, #dcdcdc);
-      .border-radius(0.5em, 0, 0, 0.5em);
-    }                     
-    .details {
-      .linear-gradient(#fff, #dcdcdc);
-      vertical-align: middle;
-      text-align: center;
-      padding: 0.5em;
-      .date {
-        white-space: nowrap;
-        color: #483d8b;
-        font-weight: bold;
-      }
-      .controls {
-        white-space: nowrap;
-      }
-    }
-    .stat {        
-      padding: 0.5em;
-      vertical-align: middle;
-      text-align: center;
-      color: white;
-      font-weight: bold;            
-      .linear-gradient(#757575, #4b4b4b);
-      .border-radius(0, 0.5em, 0.5em, 0);
-    }
-  }
-  .definition {   
-    padding: 0.5em 1em;
-  }
-  .src {
-    padding: 0 1em;
-    .authors {
-      margin: 0 5px 0 0;
-      float: left;
-      .linear-gradient(#4b4b4b, #222);
-      color: white;    
-      padding: 5px;    
-    }    
-    .source {
-      .linear-gradient(#757575, #4b4b4b);
-      float: left;
-      a {
-        padding: 5px;    
-        display: block;
-        color: white;
-      }
-    }
-    .tag {          
-      .linear-gradient(#ccc, #757575);
-      padding: 5px;
-      color: black;
-      margin-left: 5px;
-      float: left;
-    }
-  }
-  .edit {
-    text-align: center;
-    display: none;    
-  }
-
-}
-
-.move:hover .edit {
-  display: block;
-}
-.move:hover .date {
-  display: none;  
-}
-
 form {
   label {
     display: block;
-  }                
+  }                   
+  .number {
+    display: inline-block;
+    width: 2em;
+  }
+  .header {
+    font-weight: bold;
+    label {
+      margin-left: 2em;
+    }
+  }
   input.txt, textarea {
     width: 28em;      
     border: 1px solid #aaa;
@@ -258,7 +155,7 @@ form {
   }                  
   
   ol {
-    list-style: outside decimal;
+    list-style: outside none;
     margin: 0;
     li {
       margin: 0.5em 0 0.5em 2em;
@@ -280,5 +177,22 @@ form {
       display: block;
     }
     
+  }
+}
+
+.table {
+  margin-left: 0;
+  ol, li {
+    margin: 0;
+    list-style: outside none;
+  }              
+  .heading {
+    font-size: 1.6em;        
+    .label {
+      vertical-align: middle;
+    }
+    .edit {
+      font-size: 0.5em;
+    }
   }
 }
