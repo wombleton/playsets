@@ -7,7 +7,7 @@
 }
 
 body, p, td, input {
-  font-family: Georgia, Times New Roman, serif;
+  font-family: 'Brawler', arial, serif;
   font-size: 1em;
   background: #f8f8f8;
 }                     
@@ -15,7 +15,10 @@ header .nav, header .headline, footer, #main {
   width: 960px;
   margin: 0 auto;
 }                                      
-
+                                        
+#main {
+  padding-top: 48px;
+}           
 footer {
   clear: both;
   margin-top: 1em;
@@ -30,7 +33,12 @@ footer {
     }
   }
 }
-                          
+
+h1, h2, h3, h4 {
+  font-family: 'Bigshot One', arial, serif;
+  font-weight: normal;
+}                          
+                                                                              
 p {
   margin: 0 0 1em;
 }
@@ -50,9 +58,18 @@ a {
 }
 header {                          
   .linear-gradient(#fff, #f0f0f0);
-  border-bottom: 5px solid #440000;
-  margin: 10px 0 1em;
-                           
+  position: fixed;
+  _position: relative;
+  width: 100%;
+  line-height: 40px;                              
+
+  ul {
+    list-style: outside none;
+    display: inline;
+    li {
+      display: inline;
+    }
+  }                                                                                                                    
   #search {  
     display: inline-block;
     width: 320px;
@@ -87,6 +104,7 @@ header {
       list-style: none inside;
       display: inline-block;
       margin: 0 0 0 0.5em;
+      font-family: 'Bigshot One', arial, serif;
       &:first-child {
         margin-left: 1em;
       }
@@ -138,7 +156,6 @@ form {
     width: 2em;
   }
   .header {
-    font-weight: bold;
     label {
       margin-left: 2em;
     }
@@ -187,7 +204,8 @@ form {
     list-style: outside none;
   }              
   .heading {
-    font-size: 1.6em;        
+    font-size: 1.6em;  
+    font-family: 'Bigshot One', arial, serif;      
     .label {
       vertical-align: middle;
     }
@@ -196,3 +214,28 @@ form {
     }
   }
 }
+
+.entries li {                                       
+  padding-left: 24px;              
+  line-height: 24px;
+  
+  &.die1 {
+    background: url('/images/dice-1.png') no-repeat left 4px;
+  }             
+  &.die2 {
+    background: url('/images/dice-2.png') no-repeat left 4px;
+  }             
+  &.die3 {
+    background: url('/images/dice-3.png') no-repeat left 4px;
+  }             
+  &.die4 {
+    background: url('/images/dice-4.png') no-repeat left 4px;
+  }             
+  &.die5 {
+    background: url('/images/dice-5.png') no-repeat left 4px;
+  }             
+  &.die6 {
+    background: url('/images/dice-6.png') no-repeat left 4px;
+  }             
+}
+  

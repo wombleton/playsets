@@ -14,9 +14,7 @@ ol.table
         
       ol.entries
         - for (var j = 0; j < 6; j++)
-          li(class='entry ' + (j + 1))
-            =(j+1)
-            |  
+          li(class='entry die' + (j + 1))
             - if (table[i][j])
               =table[i][j]
             - else
