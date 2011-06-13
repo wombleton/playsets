@@ -4,6 +4,8 @@ server = express.createServer()
 _ = require('underscore')
 Mongoose = require('mongoose')
 db = undefined
+easyoauth = require('easy-oauth')
+config = require('../playsets_config').cfg
 
 server.configure ->
   server.use express.logger()
@@ -11,7 +13,8 @@ server.configure ->
   server.use express.methodOverride()
   server.use express.cookieParser()
   server.use express.static __dirname + '/static'
-  
+  server.use express.session({ secret: config.session_secret })
+  server.use easyoauth(require('../playsets_keys_file'))
   
 server.configure 'production', ->
   db = Mongoose.connect 'mongodb://localhost/playsets'
@@ -32,7 +35,7 @@ server.configure 'test', ->
 server.set 'views', __dirname + '/views'
 server.set 'view engine', 'jade'
 
-user = require './users'
+users = require './users'
 User = db.model 'User'
 users.init server, User
 
