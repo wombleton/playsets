@@ -1,13 +1,11 @@
 (function() {
-  var Mongoose, Playset, User, config, cs, db, easyoauth, express, playsets, server, users, _;
+  var Mongoose, auth, config, cs, express, server;
   express = require('express');
   cs = require('coffee-script');
   server = express.createServer();
-  _ = require('underscore');
   Mongoose = require('mongoose');
-  db = void 0;
-  easyoauth = require('easy-oauth');
-  config = require('../playsets_config').cfg;
+  config = require('/home/node/playsets_config').cfg;
+  auth = require('connect-auth');
   server.configure(function() {
     server.use(express.logger());
     server.use(express.bodyParser());
@@ -17,14 +15,24 @@
     server.use(express.session({
       secret: config.session_secret
     }));
-    return server.use(easyoauth(require('../playsets_keys_file')));
+    return server.use(auth([
+      auth.Twitter({
+        consumerKey: config.twitter_key,
+        consumerSecret: config.twitter_secret,
+        callback: 'http://crumpets.playsets.no.de:3000/auth/twitter'
+      }), auth.Facebook({
+        appId: config.facebook_id,
+        appSecret: config.facebook_secret,
+        callback: config.facebook_callback
+      })
+    ]));
   });
   server.configure('production', function() {
-    db = Mongoose.connect('mongodb://localhost/playsets');
+    process.env.server = 'PRODUCTION';
     return server.listen(80);
   });
   server.configure('development', function() {
-    db = Mongoose.connect('mongodb://localhost/playsets');
+    process.env.server = 'DEVELOPMENT';
     server.use(express.errorHandler({
       dumpExceptions: true,
       showStack: true
@@ -32,15 +40,18 @@
     return server.listen(3000);
   });
   server.configure('test', function() {
-    db = Mongoose.connect('mongodb://localhost/playsets-test');
+    process.env.server = 'TEST';
     return module.exports.server = server;
   });
   server.set('views', __dirname + '/views');
   server.set('view engine', 'jade');
-  users = require('./users');
-  User = db.model('User');
-  users.init(server, User);
-  playsets = require('./playsets');
-  Playset = db.model('Playset');
-  playsets.init(server, Playset);
+  server.get('/', function(req, res) {
+    return res.redirect('/playsets');
+  });
+  module.exports.server = server;
+  require('./db');
+  require('./models/account');
+  require('./models/playset');
+  require('./controllers/accounts');
+  require('./controllers/playsets');
 }).call(this);

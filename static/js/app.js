@@ -1,9 +1,11 @@
 (function() {
-  $(document).ready(function() {
-    $('#search').submit(function() {
-      window.location.href = '/playsets/tagged/' + $('.tags', this).val().replace(/[^a-z0-9-_ ]/gi, '');
-      return false;
-    });
-    return $('.header .txt').focus();
+  Ext.application({
+    name: 'HelloExt',
+    launch: function() {
+      return Ext.create('Ext.panel.Panel', {
+        html: 'hi',
+        renderTo: 'header'
+      });
+    }
   });
 }).call(this);

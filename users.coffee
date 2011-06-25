@@ -1,4 +1,4 @@
-easyoauth = require('easy-oauth')
+OAuth= require('oauth').OAuth
 Mongoose = require('mongoose')
 Schema = Mongoose.Schema
 
@@ -59,3 +59,15 @@ module.exports.init = (server, User) ->
       res.redirect '/'
     else
       res.end '<html><h1>Facebook authentication failed :( </h1></html>'
+
+  server.get '/auth/twitter', (req, res, params) ->
+    twitterConsumerKey 
+    req.authenticate ['twitter'], (error, authenticated) -> 
+      if authenticated
+        oa = new OAuth "http://twitter.com/oauth/request_token", "http://twitter.com/oauth/access_token", twitterConsumerKey, twitterConsumerSecret, "1.0", null, "HMAC-SHA1"
+        oa.getProtectedResource "http://twitter.com/statuses/user_timeline.xml", "GET", req.getAuthDetails()["twitter_oauth_token"], req.getAuthDetails()["twitter_oauth_token_secret"], (error, data) ->
+          res.writeHead 200, {'Content-Type': 'text/html'}
+          res.end("<html><h1>Hello! Twitter authenticated user ("+req.getAuthDetails().user.username+")</h1>"+data+ "</html>")
+      else
+        res.writeHead(200, {'Content-Type': 'text/html'})
+        res.end("<html><h1>Twitter authentication failed :( </h1></html>")

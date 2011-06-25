@@ -1,11 +1,9 @@
 express = require('express')
 cs = require('coffee-script')
 server = express.createServer()
-_ = require('underscore')
 Mongoose = require('mongoose')
-db = undefined
-easyoauth = require('easy-oauth')
-config = require('../playsets_config').cfg
+config = require('/home/node/playsets_config').cfg
+auth = require('connect-auth')
 
 server.configure ->
   server.use express.logger()
@@ -14,32 +12,42 @@ server.configure ->
   server.use express.cookieParser()
   server.use express.static __dirname + '/static'
   server.use express.session({ secret: config.session_secret })
-  server.use easyoauth(require('../playsets_keys_file'))
+  server.use auth([ 
+    auth.Twitter
+      consumerKey: config.twitter_key
+      consumerSecret: config.twitter_secret
+      callback: 'http://crumpets.playsets.no.de:3000/auth/twitter'
+    auth.Facebook
+      appId: config.facebook_id
+      appSecret: config.facebook_secret
+      callback: config.facebook_callback
+  ])
   
 server.configure 'production', ->
-  db = Mongoose.connect 'mongodb://localhost/playsets'
+  process.env.server = 'PRODUCTION'
   server.listen 80
   
 server.configure 'development', -> 
-  db = Mongoose.connect 'mongodb://localhost/playsets'
-  server.use express.errorHandler {
+  process.env.server = 'DEVELOPMENT'
+  server.use express.errorHandler
     dumpExceptions: true,
     showStack: true
-  }
   server.listen 3000
   
 server.configure 'test', ->
-  db = Mongoose.connect('mongodb://localhost/playsets-test')
+  process.env.server = 'TEST'
   module.exports.server = server
 
 server.set 'views', __dirname + '/views'
 server.set 'view engine', 'jade'
 
-users = require './users'
-User = db.model 'User'
-users.init server, User
+server.get '/', (req, res) -> res.redirect('/playsets')
 
-playsets = require './playsets'
-Playset = db.model 'Playset'
+module.exports.server = server
+require './db'
 
-playsets.init  server, Playset
+require './models/account'
+require './models/playset'
+
+require './controllers/accounts'
+require './controllers/playsets'
