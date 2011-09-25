@@ -16,14 +16,36 @@ parseTags = (tags) ->
   _.map _.compact(tags.split /\s+/), (tag) ->
     tag.replace /[^a-z0-9-_]/gi, ''
 
-SublistSchema = new Schema(
-  name: [ String ]
-)
+sublist =
+  name:
+    default: ''
+    type: String
+  1:
+    default: ''
+    type: String
+  2:
+    default: ''
+    type: String
+  3:
+    default: ''
+    type: String
+  4:
+    default: ''
+    type: String
+  5:
+    default: ''
+    type: String
+  6:
+    default: ''
+    type: String
 
-ListSchema = new Schema(
-  name: String
-  sublists: [ SublistSchema ]
-)
+list =
+  1: sublist
+  2: sublist
+  3: sublist
+  4: sublist
+  5: sublist
+  6: sublist
 
 PlaysetSchema = new Schema(
   created:
@@ -33,6 +55,7 @@ PlaysetSchema = new Schema(
   instant_setup: String
   pitch: String
   key: String
+  locations: list
   slug: String
   summary: String
   summaryimg: String
@@ -50,12 +73,14 @@ PlaysetSchema = new Schema(
 
 PlaysetSchema.pre('save', (next) ->
   playset = @
-  get_key('playset', (key) ->
-    playset.key = key
-    playset.slug = slug("#{key}-#{playset.title}")
-    debugger
+  if playset.key
     next()
-  )
+  else
+    get_key('playset', (key) ->
+      playset.key = key
+      playset.slug = slug("#{key}-#{playset.title}")
+      next()
+    )
 )
 
 Mongoose.model('Playset', PlaysetSchema)
