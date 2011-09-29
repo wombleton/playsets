@@ -52,3 +52,7 @@ module.exports = server
 
 require('./models/playset')
 require('./controllers/playsets')
+
+server.get('/', (req, res) ->
+  res.render('layout')
+)

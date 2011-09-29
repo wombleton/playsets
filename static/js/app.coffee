@@ -1,6 +1,10 @@
-Ext.application
-  name: 'HelloExt'
-  launch: ->
-    Ext.create 'Ext.panel.Panel',
-      html: 'hi'
-      renderTo: 'header'
+Ext.setup(
+  tabletStartupScreen: 'tablet_startup.png'
+  phoneStartupScreen: 'tablet_startup.png'
+  icon: 'icon.png'
+  glossOnIcon: true
+  onReady: ->
+    new FSC.views.Index(
+      fullscreen: true
+    )
+)
