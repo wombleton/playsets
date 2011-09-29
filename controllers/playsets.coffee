@@ -8,10 +8,11 @@ _ = require('underscore')
 server.get('/playsets', (req, res) ->
   start = req.query.start
   limit = req.query.limit or 5
-  Playset.find()
+  Playset.find(published: true)
       .limit(limit)
       .skip(start)
-      .desc('updated')
+      .asc('title')
+      .fields(['key', 'title'])
       .run (err, playsets) ->
         res.charset = 'utf-8'
         res.contentType('application/json')
@@ -29,6 +30,26 @@ server.get('/playsets', (req, res) ->
 onError = (req, res) ->
   res.status = 500
   res.send(message: 'Update failed.')
+
+update_published = (req, res, flag) ->
+  Playset.findOne(key: req.params.key)
+    .run (err, playset) ->
+      playset.published = true
+      playset.save (err) ->
+        res.charset = 'utf-8'
+        res.contentType('application/json')
+        if err
+          onError(req, res)
+        else
+          res.send(playset)
+
+server.post('/playsets/:key/publish', (req, res) ->
+  update_published(req, res, true)
+)
+
+server.post('/playsets/:key/unpublish', (req, res) ->
+  update_published(req, res, false)
+)
 
 server.post('/playsets', (req, res) ->
   playset = new Playset(

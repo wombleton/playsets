@@ -56,6 +56,12 @@ PlaysetSchema = new Schema(
   pitch: String
   key: String
   locations: list
+  needs: list
+  objects: list
+  published:
+    default: false
+    type: Boolean
+  relationships: list
   slug: String
   summary: String
   summaryimg: String
