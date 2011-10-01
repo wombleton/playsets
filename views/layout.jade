@@ -10,7 +10,11 @@ html
     link(rel='stylesheet', href='/css/playsets.css', type='text/css')
     link(rel="SHORTCUT ICON", href="/images/playsets.png")
   body
-    script(src='/js/lib/sencha-touch-debug-w-comments.js')
     script(src='/js/lib/underscore.min.js')
     script(src='/js/lib/underscore.string.min.js')
-    script(src='/js/playsets.js')
+    - if (production)
+      script(src='/js/lib/sencha-touch.js')
+      script(src='/js/playsets.min.js')
+    - else
+      script(src='/js/lib/sencha-touch-debug-w-comments.js')
+      script(src='/js/playsets.js')

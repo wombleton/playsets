@@ -54,5 +54,7 @@ require('./models/playset')
 require('./controllers/playsets')
 
 server.get('/', (req, res) ->
-  res.render('layout')
+  res.render('layout',
+    production: process.env.NODE_ENV is 'production'
+  )
 )
