@@ -3,6 +3,8 @@ FSC.views.Show = Ext.extend(Ext.Carousel,
   constructor: (cfg = {}) ->
     record = cfg.record
     items = []
+    splash = record.get('splash')
+    splash_page = new FSC.views.Splash(splash) if splash
     instant = record.get('instant_setup')
     instant_setup = new FSC.views.InstantSetup(instant) if instant
     relationships = new FSC.views.List(record, 'relationships')
@@ -11,6 +13,7 @@ FSC.views.Show = Ext.extend(Ext.Carousel,
     objects = new FSC.views.List(record, 'objects')
     cfg = Ext.applyIf(cfg,
       items: _.compact([
+        splash_page
         relationships
         needs
         locations

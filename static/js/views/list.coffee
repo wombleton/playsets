@@ -9,9 +9,9 @@ FSC.views.List = Ext.extend(Ext.Panel,
     FSC.views.List.superclass.constructor.call(@, cfg)
   unroll: (record, property) ->
     items = _.map(record.get(property), (val, i) ->
-      vals = ["<h2>#{i + 1} #{val.name}</h2>", '<ul>']
+      vals = ["<h2>#{i + 1} #{val.name}</h2>", '<ul class="list">']
       _.each(val.values, (v, i) ->
-        vals.push("<li><img src=\"/images/dice-#{i + 1}.png\"> #{v}</li>")
+        vals.push("<li><div class=\"dice_#{i + 1}\"></div><div class=\"message\">#{v}</div></li>")
       )
       vals.push('</ul>')
       vals.join('')

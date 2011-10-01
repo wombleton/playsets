@@ -3,17 +3,15 @@
   padding: 1em 2em;
   h1 {
     letter-spacing: 2px;
-    font-family: Hitchcock, Georgia, Times New Roman, serif;
+    font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
     font-size: 1.6em;
-    font-weight: bold;
     margin: 0.5em 0 0.2em;
     text-transform: uppercase;
   }
   h2 {
     letter-spacing: 2px;
-    font-family: Hitchcock, Georgia, Times New Roman, serif;
+    font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
     font-size: 1.3em;
-    font-weight: bold;
     margin: 0.5em 0 0.2em;
     text-transform: uppercase;
   }
@@ -32,9 +30,26 @@
   }
 }
 .playset-list {
-  li {
-    font-size: 0.9em;
-    line-height: 2.4em;
-    vertical-align: middle;
+  .list {
+    li {
+      font-size: 0.9em;
+      line-height: 2.4em;
+      vertical-align: middle;
+    }
+  }
+}
+.x-button-label, .x-list {
+  font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
+}
+
+.splash-page {
+  text-align: center;
+  .background {
+    height: 100%;
+  }
+  .swipe {
+    right: 1em;
+    top: 40%;
+    position:absolute;
   }
 }

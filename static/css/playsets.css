@@ -6,40 +6,58 @@
 /* line 4, ../../resources/sass/playsets.scss */
 .playset-list h1, .instant-setup h1 {
   letter-spacing: 2px;
-  font-family: Hitchcock, Georgia, Times New Roman, serif;
+  font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
   font-size: 1.6em;
-  font-weight: bold;
   margin: 0.5em 0 0.2em;
   text-transform: uppercase;
 }
-/* line 12, ../../resources/sass/playsets.scss */
+/* line 11, ../../resources/sass/playsets.scss */
 .playset-list h2, .instant-setup h2 {
   letter-spacing: 2px;
-  font-family: Hitchcock, Georgia, Times New Roman, serif;
+  font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
   font-size: 1.3em;
-  font-weight: bold;
   margin: 0.5em 0 0.2em;
   text-transform: uppercase;
 }
 
-/* line 22, ../../resources/sass/playsets.scss */
+/* line 20, ../../resources/sass/playsets.scss */
 .instant-setup h3 {
   font-weight: bold;
 }
-/* line 25, ../../resources/sass/playsets.scss */
+/* line 23, ../../resources/sass/playsets.scss */
 .instant-setup ul {
   margin-left: 1em;
 }
-/* line 28, ../../resources/sass/playsets.scss */
+/* line 26, ../../resources/sass/playsets.scss */
 .instant-setup li {
   list-style: inside none url(foo);
   font-size: 0.9em;
   vertical-align: middle;
 }
 
-/* line 35, ../../resources/sass/playsets.scss */
-.playset-list li {
+/* line 34, ../../resources/sass/playsets.scss */
+.playset-list .list li {
   font-size: 0.9em;
   line-height: 2.4em;
   vertical-align: middle;
+}
+
+/* line 41, ../../resources/sass/playsets.scss */
+.x-button-label, .x-list {
+  font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
+}
+
+/* line 45, ../../resources/sass/playsets.scss */
+.splash-page {
+  text-align: center;
+}
+/* line 47, ../../resources/sass/playsets.scss */
+.splash-page .background {
+  height: 100%;
+}
+/* line 50, ../../resources/sass/playsets.scss */
+.splash-page .swipe {
+  right: 1em;
+  top: 40%;
+  position: absolute;
 }

@@ -1,6 +1,6 @@
 Ext.setup(
-  tabletStartupScreen: 'tablet_startup.png'
-  phoneStartupScreen: 'tablet_startup.png'
+  tabletStartupScreen: 'fiasco.svg'
+  phoneStartupScreen: 'fiasco.svg'
   icon: 'icon.png'
   glossOnIcon: true
   onReady: ->

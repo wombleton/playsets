@@ -1,5 +1,6 @@
 Ext.StoreMgr.get('playsets').add(
   title: 'Boomtown'
+  splash: 'boomtown.png'
   relationships: [
     {
       name: 'Family'
@@ -140,8 +141,7 @@ Ext.StoreMgr.get('playsets').add(
     {
       name: 'Residences'
       values: [
-        'A filthy buckboard wagon with a ragged awning and barrels for'
-        'walls'
+        'A filthy buckboard wagon with a ragged awning and barrels for walls'
         'A tidy Sears-bought house, crisply painted'
         'A permanent room in the Belle-Union Boarding House'
         'A gaudy mansion next to the dirt platted as a park'

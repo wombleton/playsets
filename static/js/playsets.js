@@ -1,6 +1,6 @@
 (function() {
   Ext.regModel('Playset', {
-    fields: ['key', 'title', 'summary', 'instant_setup', 'pitch', 'locations', 'needs', 'relationships', 'objects', 'tags']
+    fields: ['key', 'splash', 'title', 'summary', 'instant_setup', 'pitch', 'locations', 'needs', 'relationships', 'objects', 'tags']
   });
   new Ext.data.Store({
     getGroupString: function(record) {
@@ -105,6 +105,7 @@
   });
   Ext.StoreMgr.get('playsets').add({
     title: 'Boomtown',
+    splash: 'boomtown.png',
     relationships: [
       {
         name: 'Family',
@@ -150,7 +151,7 @@
     locations: [
       {
         name: 'Residences',
-        values: ['A filthy buckboard wagon with a ragged awning and barrels for', 'walls', 'A tidy Sears-bought house, crisply painted', 'A permanent room in the Belle-Union Boarding House', 'A gaudy mansion next to the dirt platted as a park', 'The opium den behind the White Star Laundry', 'A squalid apartment above the newspaper office']
+        values: ['A filthy buckboard wagon with a ragged awning and barrels for walls', 'A tidy Sears-bought house, crisply painted', 'A permanent room in the Belle-Union Boarding House', 'A gaudy mansion next to the dirt platted as a park', 'The opium den behind the White Star Laundry', 'A squalid apartment above the newspaper office']
       }, {
         name: 'The Bradford Hotel',
         values: ['The storm cellar', 'The clerk’s room, safe, and freight office', 'The brothel billiard parlor', 'The saloon', 'A bar girl’s crib', 'The Governor’s Suite']
@@ -236,12 +237,16 @@
   Ext.ns('FSC.views');
   FSC.views.Show = Ext.extend(Ext.Carousel, {
     constructor: function(cfg) {
-      var instant, instant_setup, items, locations, needs, objects, record, relationships;
+      var instant, instant_setup, items, locations, needs, objects, record, relationships, splash, splash_page;
       if (cfg == null) {
         cfg = {};
       }
       record = cfg.record;
       items = [];
+      splash = record.get('splash');
+      if (splash) {
+        splash_page = new FSC.views.Splash(splash);
+      }
       instant = record.get('instant_setup');
       if (instant) {
         instant_setup = new FSC.views.InstantSetup(instant);
@@ -251,10 +256,18 @@
       locations = new FSC.views.List(record, 'locations');
       objects = new FSC.views.List(record, 'objects');
       cfg = Ext.applyIf(cfg, {
-        items: _.compact([relationships, needs, locations, objects, instant_setup]),
+        items: _.compact([splash_page, relationships, needs, locations, objects, instant_setup]),
         title: record.get('title')
       });
       return FSC.views.Show.superclass.constructor.call(this, cfg);
+    }
+  });
+  FSC.views.Splash = Ext.extend(Ext.Panel, {
+    constructor: function(img) {
+      return FSC.views.Splash.superclass.constructor.call(this, {
+        cls: 'splash-page',
+        html: "<img class=\"background\" src=\"/images/" + img + "\">\n<img class=\"swipe\" src=\"/images/swipe.png\">"
+      });
     }
   });
   Ext.ns('FSC.views');
@@ -281,9 +294,9 @@
       var items;
       items = _.map(record.get(property), function(val, i) {
         var vals;
-        vals = ["<h2>" + (i + 1) + " " + val.name + "</h2>", '<ul>'];
+        vals = ["<h2>" + (i + 1) + " " + val.name + "</h2>", '<ul class="list">'];
         _.each(val.values, function(v, i) {
-          return vals.push("<li><img src=\"/images/dice-" + (i + 1) + ".png\"> " + v + "</li>");
+          return vals.push("<li><div class=\"dice_" + (i + 1) + "\"></div><div class=\"message\">" + v + "</div></li>");
         });
         vals.push('</ul>');
         return vals.join('');
@@ -292,8 +305,8 @@
     }
   });
   Ext.setup({
-    tabletStartupScreen: 'tablet_startup.png',
-    phoneStartupScreen: 'tablet_startup.png',
+    tabletStartupScreen: 'fiasco.png',
+    phoneStartupScreen: 'fiasco.png',
     icon: 'icon.png',
     glossOnIcon: true,
     onReady: function() {

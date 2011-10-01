@@ -8,6 +8,7 @@ files = [
   'playsets/boomtown'
   'views/index'
   'views/show'
+  'views/splash'
   'views/instant_setup'
   'views/list'
   'app'
