@@ -305,8 +305,8 @@
     }
   });
   Ext.setup({
-    tabletStartupScreen: 'fiasco.png',
-    phoneStartupScreen: 'fiasco.png',
+    tabletStartupScreen: 'fiasco.svg',
+    phoneStartupScreen: 'fiasco.svg',
     icon: 'icon.png',
     glossOnIcon: true,
     onReady: function() {
