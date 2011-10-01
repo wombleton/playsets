@@ -276,28 +276,41 @@ Ext.StoreMgr.get('playsets').add(
   instant_setup: """
 <h2>Relationships</h2>
 <h3>For three players...</h3>
-<li>Family: Unrelated, but close as blood</li>
-<li>Crime: Crime boss and toady</li>
-<li>Romance: Mail-order bride and her groom</li>
+<ul>
+  <li>Family: Unrelated, but close as blood</li>
+  <li>Crime: Crime boss and toady</li>
+  <li>Romance: Mail-order bride and her groom</li>
+</ul>
 <h3>For four players, add...</h3>
 <ul>
-<li>Community: Government / citizen</li>
+  <li>Community: Government / citizen</li>
 </ul>
 <h3>For five players, add...</h3>
-<li>The Past: Both married to same spouse</li>
-NEEDS
-For three players...
-To get free: of a relationship with a lover
-For four or five players, add...
-To get away: From hard-riding vengeance
-Locations
-For three, four or five players...
-The Bradford Hotel: The saloon
-Objects
-For three or four players...
-Information: An assay note on the minerals in Circle S Ranch
-soil
-For five players, add...
-Sentimental: A newborn baby
+<ul>
+  <li>The Past: Both married to same spouse</li>
+</ul>
+<h2>NEEDS</h2>
+<h3>For three players...</h3>
+<ul>
+  <li>To get free: of a relationship with a lover</li>
+</ul>
+<h3>For four or five players, add...</h3>
+<ul>
+  <li>To get away: From hard-riding vengeance</li>
+</ul>
+<h2>Locations</h2>
+<h3>For three, four or five players...</h3>
+<ul>
+  <li>The Bradford Hotel: The saloon</li>
+</ul>
+<h2>Objects</h2>
+<h3>For three or four players...</h3>
+<ul>
+  <li>Information: An assay note on the minerals in Circle S Ranch soil</li>
+</ul>
+<h3>For five players, add...</h3>
+<ul>
+  <li>Sentimental: A newborn baby</li>
+</ul>
   """
 )

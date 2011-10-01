@@ -1,0 +1,45 @@
+/* line 1, ../../resources/sass/playsets.scss */
+.playset-list, .instant-setup {
+  font-family: Georgia, Times New Roman, serif;
+  padding: 1em 2em;
+}
+/* line 4, ../../resources/sass/playsets.scss */
+.playset-list h1, .instant-setup h1 {
+  letter-spacing: 2px;
+  font-family: Hitchcock, Georgia, Times New Roman, serif;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 0.5em 0 0.2em;
+  text-transform: uppercase;
+}
+/* line 12, ../../resources/sass/playsets.scss */
+.playset-list h2, .instant-setup h2 {
+  letter-spacing: 2px;
+  font-family: Hitchcock, Georgia, Times New Roman, serif;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 0.5em 0 0.2em;
+  text-transform: uppercase;
+}
+
+/* line 22, ../../resources/sass/playsets.scss */
+.instant-setup h3 {
+  font-weight: bold;
+}
+/* line 25, ../../resources/sass/playsets.scss */
+.instant-setup ul {
+  margin-left: 1em;
+}
+/* line 28, ../../resources/sass/playsets.scss */
+.instant-setup li {
+  list-style: inside none url(foo);
+  font-size: 0.9em;
+  vertical-align: middle;
+}
+
+/* line 35, ../../resources/sass/playsets.scss */
+.playset-list li {
+  font-size: 0.9em;
+  line-height: 2.4em;
+  vertical-align: middle;
+}

@@ -3,7 +3,6 @@ fs     = require 'fs'
 
 files = [
   'models/playset'
-  'models/setlist'
   'stores/playsets'
   'playsets/main-st'
   'playsets/boomtown'
