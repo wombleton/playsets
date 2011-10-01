@@ -3,7 +3,9 @@ fs     = require 'fs'
 
 files = [
   'models/playset'
+  'models/item'
   'stores/playsets'
+  'stores/item_store'
   'playsets/main-st'
   'playsets/boomtown'
   'views/index'

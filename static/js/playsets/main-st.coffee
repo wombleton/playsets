@@ -1,5 +1,6 @@
 Ext.StoreMgr.get('playsets').add(
   title: 'Main St'
+  splash: 'main-st.png'
   relationships: [
     {
       name: 'Family'

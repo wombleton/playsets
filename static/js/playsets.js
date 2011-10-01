@@ -2,6 +2,9 @@
   Ext.regModel('Playset', {
     fields: ['key', 'splash', 'title', 'summary', 'instant_setup', 'pitch', 'locations', 'needs', 'relationships', 'objects', 'tags']
   });
+  Ext.regModel('Item', {
+    fields: ['group', 'text']
+  });
   new Ext.data.Store({
     getGroupString: function(record) {
       return record.get('title')[0].toUpperCase();
@@ -15,8 +18,29 @@
     sortOnLoad: true,
     storeId: 'playsets'
   });
+  Ext.ns('FSC.data');
+  FSC.data.ItemStore = Ext.extend(Ext.data.ArrayStore, {
+    constructor: function(cfg) {
+      if (cfg == null) {
+        cfg = {};
+      }
+      cfg = Ext.applyIf(cfg, {
+        model: 'Item'
+      });
+      return FSC.data.ItemStore.superclass.constructor.call(this, cfg);
+    },
+    getGroupString: function(record) {
+      return record.get('group');
+    },
+    sorters: [
+      {
+        property: 'text'
+      }
+    ]
+  });
   Ext.StoreMgr.get('playsets').add({
     title: 'Main St',
+    splash: 'main-st.png',
     relationships: [
       {
         name: 'Family',
@@ -201,6 +225,7 @@
       cfg = Ext.applyIf(cfg, {
         activeItem: 0,
         items: {
+          cls: 'playset-index',
           grouped: true,
           indexBar: true,
           itemTpl: '{title}',
@@ -256,10 +281,11 @@
       locations = new FSC.views.List(record, 'locations');
       objects = new FSC.views.List(record, 'objects');
       cfg = Ext.applyIf(cfg, {
-        items: _.compact([splash_page, relationships, needs, locations, objects, instant_setup]),
+        items: _.compact([splash_page, needs, relationships, locations, objects, instant_setup]),
         title: record.get('title')
       });
-      return FSC.views.Show.superclass.constructor.call(this, cfg);
+      FSC.views.Show.superclass.constructor.call(this, cfg);
+      return this.doComponentLayout();
     }
   });
   FSC.views.Splash = Ext.extend(Ext.Panel, {
@@ -284,24 +310,32 @@
     constructor: function(record, property) {
       var cfg;
       cfg = {
-        cls: 'playset-list',
-        html: this.unroll(record, property),
-        scroll: 'vertical'
+        items: {
+          grouped: true,
+          itemTpl: '<div class="playset-item"><div class="dice-roll dice-roll-{index}"></div><div class="item-text">{text}</div></div>',
+          singleSelect: true,
+          store: this.createStore(record, property),
+          xtype: 'list'
+        },
+        layout: 'fit'
       };
       return FSC.views.List.superclass.constructor.call(this, cfg);
     },
-    unroll: function(record, property) {
-      var items;
-      items = _.map(record.get(property), function(val, i) {
-        var vals;
-        vals = ["<h2>" + (i + 1) + " " + val.name + "</h2>", '<ul class="list">'];
-        _.each(val.values, function(v, i) {
-          return vals.push("<li><div class=\"dice_" + (i + 1) + "\"></div><div class=\"message\">" + v + "</div></li>");
+    createStore: function(record, property) {
+      var store;
+      store = new FSC.data.ItemStore();
+      _.each(record.get(property), function(val, i) {
+        var group;
+        group = "" + (i + 1) + " " + val.name;
+        return _.each(val.values, function(v, i) {
+          return store.add({
+            group: group,
+            index: i + 1,
+            text: v
+          });
         });
-        vals.push('</ul>');
-        return vals.join('');
       });
-      return "<h1>" + (_(property).capitalize()) + "</h1>" + (items.join(''));
+      return store;
     }
   });
   Ext.setup({

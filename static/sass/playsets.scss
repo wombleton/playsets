@@ -1,0 +1,87 @@
+$dice: sprite-map("dice/*.png");
+
+.instant-setup {
+  h3 {
+    font-weight: bold;
+  }
+  ul {
+    margin-left: 1em;
+  }
+  li {
+    list-style: inside none url(foo);
+    font-size: 0.9em;
+    vertical-align: middle;
+  }
+}
+.playset-item {
+  vertical-align: middle;
+  .dice-roll {
+    display: inline-block;
+    line-height: 20px;
+    height: 16px;
+    width: 16px;
+    margin: 0 6px 0 0;
+    &.dice-roll-1 {
+      background: sprite($dice, roll-1);
+      .x-item-selected & {
+        background: sprite($dice, roll-1_active);
+      }
+    }
+    &.dice-roll-2 {
+      background: sprite($dice, roll-2);
+      .x-item-selected & {
+        background: sprite($dice, roll-2_active);
+      }
+    }
+    &.dice-roll-3 {
+      background: sprite($dice, roll-3);
+      .x-item-selected & {
+        background: sprite($dice, roll-3_active);
+      }
+    }
+    &.dice-roll-4 {
+      background: sprite($dice, roll-4);
+      .x-item-selected & {
+        background: sprite($dice, roll-4_active);
+      }
+    }
+    &.dice-roll-5 {
+      background: sprite($dice, roll-5);
+      .x-item-selected & {
+        background: sprite($dice, roll-5_active);
+      }
+    }
+    &.dice-roll-6 {
+      background: sprite($dice, roll-6);
+      .x-item-selected & {
+        background: sprite($dice, roll-6_active);
+      }
+    }
+  }
+  .item-text {
+    display: inline-block;
+    line-height: 20px;
+  }
+}
+.x-list-item {
+  font-family: Georgia, Times New Roman, serif;
+}
+.x-button-label, .playset-index .x-list-item, .x-list-header {
+  font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
+}
+
+.x-list-header {
+  font-size: 1.3em;
+}
+
+.splash-page {
+  text-align: center;
+  .background {
+    height: 100%;
+  }
+  .swipe {
+    right: 1em;
+    top: 2em;
+    position:absolute;
+  }
+}

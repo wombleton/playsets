@@ -3,18 +3,26 @@ Ext.ns('FSC.views')
 FSC.views.List = Ext.extend(Ext.Panel,
   constructor: (record, property) ->
     cfg =
-      cls: 'playset-list'
-      html: @unroll(record, property)
-      scroll: 'vertical'
+      items:
+        grouped: true
+        itemTpl: '<div class="playset-item"><div class="dice-roll dice-roll-{index}"></div><div class="item-text">{text}</div></div>'
+        singleSelect: true
+        store: @createStore(record, property)
+        xtype: 'list'
+      layout: 'fit'
     FSC.views.List.superclass.constructor.call(@, cfg)
-  unroll: (record, property) ->
-    items = _.map(record.get(property), (val, i) ->
-      vals = ["<h2>#{i + 1} #{val.name}</h2>", '<ul class="list">']
+  createStore: (record, property) ->
+    store = new FSC.data.ItemStore()
+    _.each(record.get(property), (val, i) ->
+      group = "#{i + 1} #{val.name}"
+
       _.each(val.values, (v, i) ->
-        vals.push("<li><div class=\"dice_#{i + 1}\"></div><div class=\"message\">#{v}</div></li>")
+        store.add(
+          group: group
+          index: i + 1
+          text: v
+        )
       )
-      vals.push('</ul>')
-      vals.join('')
     )
-    "<h1>#{_(property).capitalize()}</h1>#{items.join('')}"
+    store
 )

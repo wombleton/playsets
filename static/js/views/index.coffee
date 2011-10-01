@@ -5,6 +5,7 @@ FSC.views.Index = Ext.extend(Ext.TabPanel,
     cfg = Ext.applyIf(cfg,
       activeItem: 0
       items:
+        cls: 'playset-index'
         grouped: true
         indexBar: true
         itemTpl: '{title}'

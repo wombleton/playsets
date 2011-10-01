@@ -14,8 +14,8 @@ FSC.views.Show = Ext.extend(Ext.Carousel,
     cfg = Ext.applyIf(cfg,
       items: _.compact([
         splash_page
-        relationships
         needs
+        relationships
         locations
         objects
         instant_setup
@@ -23,4 +23,5 @@ FSC.views.Show = Ext.extend(Ext.Carousel,
       title: record.get('title')
     )
     FSC.views.Show.superclass.constructor.call(@, cfg)
+    @doComponentLayout()
 )
