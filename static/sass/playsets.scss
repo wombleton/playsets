@@ -1,6 +1,7 @@
 $dice: sprite-map("dice/*.png");
 $tabs: sprite-map("tabs/*.png");
 
+$title-font: Hitchcock, Smythe, Georgia, Times New Roman, serif;
 .x-tabbar.x-docked-bottom .x-tab img {
   &.needs {
     background: sprite($tabs, needs);
@@ -35,11 +36,11 @@ $tabs: sprite-map("tabs/*.png");
 .playset-item {
   vertical-align: middle;
   .dice-roll {
-    display: inline-block;
+    position: absolute;
     line-height: 20px;
     height: 16px;
     width: 16px;
-    margin: 0 6px 0 0;
+    top: 12px;
     &.dice-roll-1 {
       background: sprite($dice, roll-1);
       .x-item-selected & {
@@ -78,7 +79,7 @@ $tabs: sprite-map("tabs/*.png");
     }
   }
   .item-text {
-    display: inline-block;
+    padding-left: 24px;
     line-height: 20px;
   }
 }
@@ -86,7 +87,7 @@ $tabs: sprite-map("tabs/*.png");
   font-family: Georgia, Times New Roman, serif;
 }
 .x-button-label, .playset-index .x-list-item, .x-list-header {
-  font-family: Hitchcock, Luckiest Guy, Georgia, Times New Roman, serif;
+  font-family: $title-font;
 }
 
 .x-list-header {
