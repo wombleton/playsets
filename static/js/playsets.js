@@ -260,32 +260,25 @@
     indexBar: true
   });
   Ext.ns('FSC.views');
-  FSC.views.Show = Ext.extend(Ext.Carousel, {
+  FSC.views.Show = Ext.extend(Ext.TabPanel, {
     constructor: function(cfg) {
-      var instant, instant_setup, items, locations, needs, objects, record, relationships, splash, splash_page;
+      var instant_setup, items, locations, needs, objects, record, relationships;
       if (cfg == null) {
         cfg = {};
       }
       record = cfg.record;
       items = [];
-      splash = record.get('splash');
-      if (splash) {
-        splash_page = new FSC.views.Splash(splash);
-      }
-      instant = record.get('instant_setup');
-      if (instant) {
-        instant_setup = new FSC.views.InstantSetup(instant);
-      }
-      relationships = new FSC.views.List(record, 'relationships');
+      instant_setup = new FSC.views.InstantSetup(record);
+      relationships = new FSC.views.List(record, 'relationships', 'people');
       needs = new FSC.views.List(record, 'needs');
-      locations = new FSC.views.List(record, 'locations');
-      objects = new FSC.views.List(record, 'objects');
+      locations = new FSC.views.List(record, 'locations', 'places');
+      objects = new FSC.views.List(record, 'objects', 'stuff');
       cfg = Ext.applyIf(cfg, {
-        items: _.compact([splash_page, needs, relationships, locations, objects, instant_setup]),
+        items: [needs, relationships, locations, objects, instant_setup],
+        tabBarDock: 'bottom',
         title: record.get('title')
       });
-      FSC.views.Show.superclass.constructor.call(this, cfg);
-      return this.doComponentLayout();
+      return FSC.views.Show.superclass.constructor.call(this, cfg);
     }
   });
   FSC.views.Splash = Ext.extend(Ext.Panel, {
@@ -298,18 +291,35 @@
   });
   Ext.ns('FSC.views');
   FSC.views.InstantSetup = Ext.extend(Ext.Panel, {
-    constructor: function(html) {
-      return FSC.views.InstantSetup.superclass.constructor.call(this, {
+    constructor: function(record) {
+      var cfg;
+      cfg = {
         cls: 'instant-setup',
-        html: html
-      });
+        iconCls: 'instant',
+        items: [
+          {
+            label: 'Players',
+            labelAlign: 'top',
+            maxValue: 5,
+            minValue: 3,
+            value: 3,
+            xtype: 'sliderfield'
+          }
+        ],
+        title: 'Setup'
+      };
+      return FSC.views.InstantSetup.superclass.constructor.call(this, cfg);
     }
   });
   Ext.ns('FSC.views');
   FSC.views.List = Ext.extend(Ext.Panel, {
-    constructor: function(record, property) {
+    constructor: function(record, property, title) {
       var cfg;
+      if (title == null) {
+        title = property;
+      }
       cfg = {
+        iconCls: property,
         items: {
           grouped: true,
           itemTpl: '<div class="playset-item"><div class="dice-roll dice-roll-{index}"></div><div class="item-text">{text}</div></div>',
@@ -317,7 +327,8 @@
           store: this.createStore(record, property),
           xtype: 'list'
         },
-        layout: 'fit'
+        layout: 'fit',
+        title: _(title).capitalize()
       };
       return FSC.views.List.superclass.constructor.call(this, cfg);
     },

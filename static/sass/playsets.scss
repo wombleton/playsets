@@ -1,4 +1,23 @@
 $dice: sprite-map("dice/*.png");
+$tabs: sprite-map("tabs/*.png");
+
+.x-tabbar.x-docked-bottom .x-tab img {
+  &.needs {
+    background: sprite($tabs, needs);
+  }
+  &.objects {
+    background: sprite($tabs, objects);
+  }
+  &.locations {
+    background: sprite($tabs, locations);
+  }
+  &.relationships {
+    background: sprite($tabs, relationships);
+  }
+  &.instant {
+    background: sprite($tabs, instant);
+  }
+}
 
 .instant-setup {
   h3 {
