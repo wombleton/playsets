@@ -1,22 +1,21 @@
 $dice: sprite-map("dice/*.png");
-$tabs: sprite-map("tabs/*.png");
 
 $title-font: Hitchcock, Smythe, Georgia, Times New Roman, serif;
 .x-tabbar.x-docked-bottom .x-tab img {
   &.needs {
-    background: sprite($tabs, needs);
+    -webkit-mask-image: url(/images/tabs/needs.png);
   }
   &.objects {
-    background: sprite($tabs, objects);
+    -webkit-mask-image: url(/images/tabs/objects.png);
   }
   &.locations {
-    background: sprite($tabs, locations);
+    -webkit-mask-image: url(/images/tabs/locations.png);
   }
   &.relationships {
-    background: sprite($tabs, relationships);
+    -webkit-mask-image: url(/images/tabs/relationships.png);
   }
   &.instant {
-    background: sprite($tabs, instant);
+    -webkit-mask-image: url(/images/tabs/setup.png);
   }
 }
 
